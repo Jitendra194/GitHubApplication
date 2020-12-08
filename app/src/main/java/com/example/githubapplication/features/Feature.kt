@@ -3,7 +3,7 @@ package com.example.githubapplication.features
 import com.example.githubapplication.base.BaseApplication
 
 enum class FeatureName(val moduleName: String) {
-    GitHubRepoSearchFeature("feature-search"),
+    GitHubRepoSearchFeature("feature-search")
 }
 
 interface Feature<T> {

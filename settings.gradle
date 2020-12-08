@@ -1,2 +1,3 @@
+include ':feature-search'
 include ':app'
 rootProject.name = "GitHub Application"

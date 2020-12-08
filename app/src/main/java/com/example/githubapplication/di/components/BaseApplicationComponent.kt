@@ -2,6 +2,8 @@ package com.example.githubapplication.di.components
 
 import com.example.githubapplication.base.BaseApplication
 import com.example.githubapplication.di.modules.ActivityBuilderModule
+import com.example.githubapplication.di.modules.AppModule
+import com.example.githubapplication.di.modules.FeatureModule
 import com.example.githubapplication.di.viewmodel_providers.ViewModelFactoryModule
 import com.example.githubapplication.features.GitHubRepoSearchFeature
 import dagger.BindsInstance
@@ -15,7 +17,9 @@ import javax.inject.Singleton
     modules = [
         AndroidInjectionModule::class,
         ActivityBuilderModule::class,
-        ViewModelFactoryModule::class
+        ViewModelFactoryModule::class,
+        AppModule::class,
+        FeatureModule::class
     ]
 )
 interface BaseApplicationComponent : AndroidInjector<BaseApplication> {
