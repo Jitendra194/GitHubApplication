@@ -1,8 +1,9 @@
 package com.example.githubapplication.features
 
+import com.example.githubapplication.base.BaseApplication
+
 enum class FeatureName(val moduleName: String) {
     GitHubRepoSearchFeature("feature-search"),
-    GitHubRepoDetailsFeature("feature-repo-details")
 }
 
 interface Feature<T> {
@@ -11,10 +12,6 @@ interface Feature<T> {
 
 interface GitHubRepoSearchFeature : Feature<GitHubRepoSearchFeature.Dependencies> {
     interface Dependencies {
-    }
-}
-
-interface GitHubRepoDetailsFeature : Feature<GitHubRepoDetailsFeature.Dependencies> {
-    interface Dependencies {
+        val context: BaseApplication
     }
 }
