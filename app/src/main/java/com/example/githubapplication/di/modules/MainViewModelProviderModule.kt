@@ -1,7 +1,7 @@
 package com.example.githubapplication.di.modules
 
 import androidx.lifecycle.ViewModel
-import com.example.githubapplication.MainViewModel
+import com.example.githubapplication.views.MainViewModel
 import com.example.githubapplication.di.viewmodel_providers.ViewModelKey
 import dagger.Binds
 import dagger.Module

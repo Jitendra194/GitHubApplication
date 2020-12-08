@@ -2,6 +2,8 @@ package com.example.githubapplication.di.components
 
 import com.example.githubapplication.base.BaseApplication
 import com.example.githubapplication.di.modules.ActivityBuilderModule
+import com.example.githubapplication.di.viewmodel_providers.ViewModelFactoryModule
+import com.example.githubapplication.features.GitHubRepoSearchFeature
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
@@ -12,10 +14,13 @@ import javax.inject.Singleton
 @Component(
     modules = [
         AndroidInjectionModule::class,
-        ActivityBuilderModule::class
+        ActivityBuilderModule::class,
+        ViewModelFactoryModule::class
     ]
 )
 interface BaseApplicationComponent : AndroidInjector<BaseApplication> {
+
+    val gitHubRepoSearchFeature: GitHubRepoSearchFeature.Dependencies
 
     @Component.Factory
     interface Factory {

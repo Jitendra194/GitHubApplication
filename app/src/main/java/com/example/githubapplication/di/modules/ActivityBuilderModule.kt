@@ -1,6 +1,6 @@
 package com.example.githubapplication.di.modules
 
-import com.example.githubapplication.MainActivity
+import com.example.githubapplication.views.MainActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
