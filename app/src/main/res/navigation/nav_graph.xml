@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/nav_graph">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/githubFlow"
+    tools:ignore="UnusedNavigation">
+
+    <include-dynamic
+        android:id="@+id/githubFlow"
+        app:graphPackage="com.example.githubapplication.feature_search"
+        app:graphResName="github_flow"
+        app:moduleName="feature_search" />
 
 </navigation>

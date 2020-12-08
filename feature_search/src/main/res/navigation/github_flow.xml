@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/repoSearchFragment"
+    tools:ignore="UnusedNavigation">
+
+    <fragment
+        android:id="@+id/repoSearchFragment"
+        android:name="com.example.feature_search.views.RepoSearchFragment"
+        android:label="RepoSearchFragment"
+        tools:layout="@layout/fragment_repo_search">
+        <action
+            android:id="@+id/action_repoSearchFragment_to_commitsFragment"
+            app:destination="@id/commitsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/commitsFragment"
+        android:name="com.example.feature_search.views.CommitsFragment"
+        android:label="CommitsFragment"
+        tools:layout="@layout/commits_fragment"/>
+</navigation>

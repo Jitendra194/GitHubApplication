@@ -5,12 +5,7 @@ import com.example.githubapplication.base.BaseApplication
 import com.example.githubapplication.base.appComponent
 import com.google.android.play.core.splitinstall.*
 import com.google.android.play.core.splitinstall.model.SplitInstallSessionStatus
-import com.example.githubapplication.features.FeatureName.*
 import java.util.*
-
-infix fun FeatureManager.getFeature(featureName: FeatureName) = when (featureName) {
-    GitHubRepoSearchFeature -> injectFeature<GitHubRepoSearchFeature, GitHubRepoSearchFeature.Dependencies>(appComponent.gitHubRepoSearchFeature, featureName)
-}
 
 private inline fun <reified T : Feature<D>, D> FeatureManager.injectFeature(
     dependencies: D, featureName: FeatureName
@@ -31,6 +26,12 @@ private inline fun <reified T : Feature<D>, D> FeatureManager.injectFeature(
     }
 }
 
+infix fun FeatureManager.getFeature(featureName: FeatureName) = when (featureName) {
+    FeatureName.GitHubRepoSearchFeature -> injectFeature<GitHubRepoSearchFeature, GitHubRepoSearchFeature.Dependencies>(appComponent.gitHubRepoSearchFeature, featureName)
+}
+
+fun FeatureManager.installFeature(featureName: FeatureName) = downloadFeature(featureName)
+
 fun FeatureManager.isFeatureInstalled(featureName: FeatureName): Boolean = isFeatureDownloaded(featureName)
 
 interface FeatureManager {
@@ -45,8 +46,6 @@ internal class FeatureManagerImpl(private val applicationClass: BaseApplication)
     private val splitInstallManager: SplitInstallManager = SplitInstallManagerFactory.create(applicationClass)
     private val installListeners = mutableListOf<(FeatureName) -> Unit>()
 
-    private lateinit var toast: Toast
-
     override fun downloadFeature(featureName: FeatureName) {
         val request = SplitInstallRequest.newBuilder()
             .addModule(featureName.moduleName)
@@ -58,38 +57,38 @@ internal class FeatureManagerImpl(private val applicationClass: BaseApplication)
                     when (state.status()) {
                         SplitInstallSessionStatus.CANCELED -> {
                             splitInstallManager.unregisterListener(this)
-                            showToast(applicationClass, "CANCELED $moduleName = ${state.status()}")
+                            Toast.makeText(applicationClass, "CANCELED $moduleName = ${state.status()}", Toast.LENGTH_SHORT).show()
                         }
                         SplitInstallSessionStatus.CANCELING -> {
-                            showToast(applicationClass, "CANCELING $moduleName = ${state.status()}")
+                            Toast.makeText(applicationClass, "CANCELING $moduleName = ${state.status()}", Toast.LENGTH_SHORT).show()
                         }
                         SplitInstallSessionStatus.DOWNLOADED -> {
-                            showToast(applicationClass, "DOWNLOADED $moduleName = ${state.status()}")
+                            Toast.makeText(applicationClass, "DOWNLOADED $moduleName = ${state.status()}", Toast.LENGTH_SHORT).show()
                         }
                         SplitInstallSessionStatus.DOWNLOADING -> {
-                            showToast(applicationClass, "DOWNLOADING $moduleName = ${state.status()}")
+                            Toast.makeText(applicationClass, "DOWNLOADING $moduleName = ${state.status()}", Toast.LENGTH_SHORT).show()
                         }
                         SplitInstallSessionStatus.FAILED -> {
                             splitInstallManager.unregisterListener(this)
-                            showToast(applicationClass, "FAILED $moduleName = ${state.status()}")
+                            Toast.makeText(applicationClass, "FAILED $moduleName = ${state.status()}", Toast.LENGTH_SHORT).show()
                         }
                         SplitInstallSessionStatus.INSTALLED -> {
                             splitInstallManager.unregisterListener(this)
                             installListeners.forEach { listener -> listener(featureName) }
-                            showToast(applicationClass, "INSTALLED $moduleName = ${state.status()}")
+                            Toast.makeText(applicationClass, "INSTALLED $moduleName = ${state.status()}", Toast.LENGTH_SHORT).show()
                         }
                         SplitInstallSessionStatus.INSTALLING -> {
-                            showToast(applicationClass, "INSTALLING $moduleName = ${state.status()}")
+                            Toast.makeText(applicationClass, "INSTALLING $moduleName = ${state.status()}", Toast.LENGTH_SHORT).show()
                         }
                         SplitInstallSessionStatus.PENDING -> {
-                            showToast(applicationClass, "PENDING $moduleName = ${state.status()}")
+                            Toast.makeText(applicationClass, "PENDING $moduleName = ${state.status()}", Toast.LENGTH_SHORT).show()
                         }
                         SplitInstallSessionStatus.REQUIRES_USER_CONFIRMATION -> {
-                            showToast(applicationClass, "REQUIRES_USER_CONFIRMATION $moduleName = ${state.status()}")
+                            Toast.makeText(applicationClass, "REQUIRES_USER_CONFIRMATION $moduleName = ${state.status()}", Toast.LENGTH_SHORT).show()
                         }
                         SplitInstallSessionStatus.UNKNOWN -> {
                             splitInstallManager.unregisterListener(this)
-                            showToast(applicationClass, "UNKNOWN $moduleName = ${state.status()}")
+                            Toast.makeText(applicationClass, "UNKNOWN $moduleName = ${state.status()}", Toast.LENGTH_SHORT).show()
                         }
                     }
                 }
@@ -110,11 +109,5 @@ internal class FeatureManagerImpl(private val applicationClass: BaseApplication)
 
     override fun unregisterInstallListener(listener: (FeatureName) -> Unit) {
         installListeners.remove(listener)
-    }
-
-    private fun showToast(context: BaseApplication, s: String) {
-        toast.cancel()
-        toast = Toast.makeText(context, s, Toast.LENGTH_SHORT)
-        toast.show()
     }
 }
