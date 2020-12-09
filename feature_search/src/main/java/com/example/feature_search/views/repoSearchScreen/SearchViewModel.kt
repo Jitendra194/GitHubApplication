@@ -1,5 +1,6 @@
 package com.example.feature_search.views.repoSearchScreen
 
+import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -17,6 +18,7 @@ class SearchViewModel @Inject constructor(
 ) : ViewModel() {
 
     val repositoryName = ObservableField<String>()
+    val progressVisibility = ObservableBoolean(false)
 
     private val _repoResponse = MutableLiveData<GitHubRepositoryResponse>()
     val repoResponse: LiveData<GitHubRepositoryResponse>
@@ -25,8 +27,10 @@ class SearchViewModel @Inject constructor(
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     fun getRepositoryData() {
+        progressVisibility.set(true)
         compositeDisposable.add(
             gitHubRepository.getRepositories(repositoryName.get() ?: "")
+                .doFinally { progressVisibility.set(false) }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeBy(onSuccess = this::onSuccess, onError = this::onError)

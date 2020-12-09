@@ -2,13 +2,14 @@ package com.example.feature_search.views.repoSearchScreen
 
 import android.content.Context
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.example.feature_search.R
 import com.example.feature_search.databinding.FragmentRepoSearchBinding
@@ -52,6 +53,14 @@ class RepoSearchFragment : Fragment(), HasAndroidInjector, GitHubRepoAdapter.Ite
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observeLiveData()
+        setupKeyboardDoneButton()
+    }
+
+    private fun setupKeyboardDoneButton() = search_text_field.setOnEditorActionListener { _, i, keyEvent ->
+        if ((keyEvent != null && (keyEvent.keyCode == KeyEvent.KEYCODE_ENTER)) || (i == EditorInfo.IME_ACTION_DONE)) {
+            searchViewModel.getRepositoryData()
+        }
+        false
     }
 
     private fun observeLiveData() = searchViewModel.apply {

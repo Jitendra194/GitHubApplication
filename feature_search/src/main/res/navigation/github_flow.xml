@@ -12,7 +12,11 @@
         tools:layout="@layout/fragment_repo_search">
         <action
             android:id="@+id/action_repoSearchFragment_to_commitsFragment"
-            app:destination="@id/commitsFragment" />
+            app:destination="@id/commitsFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_enter_anim"
+            app:popExitAnim="@anim/nav_default_exit_anim" />
     </fragment>
 
     <fragment
