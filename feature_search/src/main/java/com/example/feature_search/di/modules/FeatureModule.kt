@@ -10,12 +10,4 @@ import dagger.Provides
 import retrofit2.Retrofit
 
 @Module(subcomponents = [RepoSearchComponent::class, CommitsComponent::class])
-object FeatureModule {
-    @Provides
-    @FeatureScope
-    fun providesGitHubService(retrofit: Retrofit.Builder): GithubService {
-        return retrofit.baseUrl(GITHUB_BASE_URL)
-            .build()
-            .create(GithubService::class.java)
-    }
-}
+object FeatureModule

@@ -7,13 +7,13 @@
 
         <variable
             name="viewModel"
-            type="com.example.feature_search.views.CommitsViewModel" />
+            type="com.example.feature_search.views.commitsListScreen.CommitsViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".views.CommitsFragment">
+        tools:context=".views.commitsListScreen.CommitsFragment">
 
         <TextView
             android:id="@+id/textView"

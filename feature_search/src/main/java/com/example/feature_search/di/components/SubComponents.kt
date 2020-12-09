@@ -1,12 +1,12 @@
 package com.example.feature_search.di.components
 
 import com.example.feature_search.di.modules.CommitsModule
-import com.example.feature_search.views.RepoSearchFragment
 import com.example.feature_search.di.modules.RepoSearchModule
 import com.example.feature_search.di.modules.viewmodel_providers.CommitsViewModelProviderModule
 import com.example.feature_search.di.modules.viewmodel_providers.SearchViewModelProviderModule
 import com.example.feature_search.di.scopes.FeatureScope
-import com.example.feature_search.views.CommitsFragment
+import com.example.feature_search.views.commitsListScreen.CommitsFragment
+import com.example.feature_search.views.repoSearchScreen.RepoSearchFragment
 import dagger.BindsInstance
 import dagger.Subcomponent
 import dagger.android.AndroidInjectionModule

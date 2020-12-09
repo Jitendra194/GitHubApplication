@@ -1,4 +1,4 @@
-package com.example.feature_search.views
+package com.example.feature_search.views.commitsListScreen
 
 import androidx.lifecycle.ViewModel
 import javax.inject.Inject
