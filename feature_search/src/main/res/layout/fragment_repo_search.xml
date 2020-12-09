@@ -8,6 +8,8 @@
         <variable
             name="viewModel"
             type="com.example.feature_search.views.repoSearchScreen.SearchViewModel" />
+
+        <import type="android.view.View" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -33,8 +35,8 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/repository_name"
                 android:imeOptions="actionDone"
-                android:text="@={viewModel.repositoryName}"
-                android:inputType="text" />
+                android:inputType="text"
+                android:text="@={viewModel.repositoryName}" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -44,12 +46,22 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:text="@string/search_button_title"
             android:onClick="@{() -> viewModel.getRepositoryData()}"
+            android:text="@string/search_button_title"
             app:layout_constraintBottom_toBottomOf="@id/search_field"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/search_field"
             app:layout_constraintTop_toTopOf="@id/search_field" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{viewModel.progressVisibility ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/repo_list"
