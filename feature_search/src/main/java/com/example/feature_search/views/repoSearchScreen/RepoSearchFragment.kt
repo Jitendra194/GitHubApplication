@@ -1,4 +1,4 @@
-package com.example.feature_search.views
+package com.example.feature_search.views.repoSearchScreen
 
 import android.content.Context
 import android.os.Bundle
@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import com.example.feature_search.R
 import com.example.feature_search.databinding.FragmentRepoSearchBinding
 import com.example.feature_search.feature_impl.searchFeatureComponent
@@ -38,7 +37,7 @@ class RepoSearchFragment : Fragment(), HasAndroidInjector {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? = DataBindingUtil.inflate<FragmentRepoSearchBinding>(inflater,
+    ): View = DataBindingUtil.inflate<FragmentRepoSearchBinding>(inflater,
         R.layout.fragment_repo_search, container, false).run {
         binding = this
         viewModel = searchViewModel

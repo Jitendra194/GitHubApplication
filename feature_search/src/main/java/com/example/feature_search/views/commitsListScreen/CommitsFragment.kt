@@ -1,4 +1,4 @@
-package com.example.feature_search.views
+package com.example.feature_search.views.commitsListScreen
 
 import android.content.Context
 import android.os.Bundle
@@ -37,7 +37,7 @@ class CommitsFragment : Fragment(), HasAndroidInjector {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? = DataBindingUtil.inflate<CommitsFragmentBinding>(inflater,
+    ): View = DataBindingUtil.inflate<CommitsFragmentBinding>(inflater,
         R.layout.commits_fragment, container, false).run {
         binding = this
         viewModel = commitsViewModel

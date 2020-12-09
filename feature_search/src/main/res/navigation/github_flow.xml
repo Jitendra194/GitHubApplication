@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/repoSearchFragment"
-        android:name="com.example.feature_search.views.RepoSearchFragment"
+        android:name="com.example.feature_search.views.repoSearchScreen.RepoSearchFragment"
         android:label="RepoSearchFragment"
         tools:layout="@layout/fragment_repo_search">
         <action
@@ -17,7 +17,7 @@
 
     <fragment
         android:id="@+id/commitsFragment"
-        android:name="com.example.feature_search.views.CommitsFragment"
+        android:name="com.example.feature_search.views.commitsListScreen.CommitsFragment"
         android:label="CommitsFragment"
         tools:layout="@layout/commits_fragment"/>
 </navigation>
