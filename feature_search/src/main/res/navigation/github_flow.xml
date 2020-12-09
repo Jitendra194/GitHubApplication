@@ -19,5 +19,9 @@
         android:id="@+id/commitsFragment"
         android:name="com.example.feature_search.views.commitsListScreen.CommitsFragment"
         android:label="CommitsFragment"
-        tools:layout="@layout/commits_fragment"/>
+        tools:layout="@layout/commits_fragment">
+        <argument
+            android:name="repone_name_and_user"
+            app:argType="string" />
+    </fragment>
 </navigation>

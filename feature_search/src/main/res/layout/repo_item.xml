@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.example.feature_search.repository.models.Item" />
+
+        <variable
+            name="listener"
+            type="com.example.feature_search.views.repoSearchScreen.GitHubRepoAdapter.ItemClickListener" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/repo_item"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:onClick="@{(view) -> listener.onClickRepository(view, item)}"
+        app:cardElevation="4dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/feature_name"
+                style="@style/TextAppearance.AppCompat.Body1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:gravity="start"
+                android:text="@{item.full_name}"
+                tools:text="repoName/UserName" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

@@ -8,16 +8,20 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.example.feature_search.R
 import com.example.feature_search.databinding.FragmentRepoSearchBinding
 import com.example.feature_search.feature_impl.searchFeatureComponent
+import com.example.feature_search.repository.models.Item
 import com.example.githubapplication.di.viewmodel_providers.ViewModelProviderFactory
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
+import kotlinx.android.synthetic.main.fragment_repo_search.*
 import javax.inject.Inject
 
-class RepoSearchFragment : Fragment(), HasAndroidInjector {
+class RepoSearchFragment : Fragment(), HasAndroidInjector, GitHubRepoAdapter.ItemClickListener {
 
     @Inject
     lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
@@ -25,9 +29,10 @@ class RepoSearchFragment : Fragment(), HasAndroidInjector {
     @Inject
     lateinit var viewModelProviderFactory: ViewModelProviderFactory
 
-    private val searchViewModel: SearchViewModel by viewModels { viewModelProviderFactory }
-
     private lateinit var binding: FragmentRepoSearchBinding
+    private lateinit var gitHubRepoAdapter: GitHubRepoAdapter
+
+    private val searchViewModel: SearchViewModel by viewModels { viewModelProviderFactory }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -37,8 +42,7 @@ class RepoSearchFragment : Fragment(), HasAndroidInjector {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View = DataBindingUtil.inflate<FragmentRepoSearchBinding>(inflater,
-        R.layout.fragment_repo_search, container, false).run {
+    ): View = DataBindingUtil.inflate<FragmentRepoSearchBinding>(inflater, R.layout.fragment_repo_search, container, false).run {
         binding = this
         viewModel = searchViewModel
         lifecycleOwner = viewLifecycleOwner
@@ -47,7 +51,18 @@ class RepoSearchFragment : Fragment(), HasAndroidInjector {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        findNavController().navigate(RepoSearchFragmentDirections.actionRepoSearchFragmentToCommitsFragment())
+        observeLiveData()
+    }
+
+    private fun observeLiveData() = searchViewModel.apply {
+        repoResponse.observe(viewLifecycleOwner) {
+            gitHubRepoAdapter = GitHubRepoAdapter(it.items, this@RepoSearchFragment)
+            repo_list.adapter = gitHubRepoAdapter
+        }
+    }
+
+    override fun onClickRepository(view: View, repoItem: Item) {
+        findNavController().navigate(RepoSearchFragmentDirections.actionRepoSearchFragmentToCommitsFragment(repoItem.full_name))
     }
 
     override fun androidInjector(): AndroidInjector<Any> = dispatchingAndroidInjector
